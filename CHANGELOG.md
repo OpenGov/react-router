@@ -1,3 +1,8 @@
+v0.13.5 - Mon, 9 May 2016 16:59:05 GMT
+---------------------------------------
+
+- Substitute dependencies for `react/lib` modules that are not present in React 0.14
+
 v0.13.3 - Wed, 29 Apr 2015 01:47:08 GMT
 ---------------------------------------
 
