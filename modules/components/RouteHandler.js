@@ -1,16 +1,15 @@
-var React = require('react');
-var ContextWrapper = require('./ContextWrapper')
-var assign = require('object-assign');
-var PropTypes = require('../PropTypes');
+var React = require("react");
+var ContextWrapper = require("./ContextWrapper");
+var assign = require("object-assign");
+var PropTypes = require("../PropTypes");
 
-var REF_NAME = '__routeHandler__';
+var REF_NAME = "__routeHandler__";
 
 /**
  * A <RouteHandler> component renders the active child route handler
  * when routes are nested.
  */
 class RouteHandler extends React.Component {
-
   getChildContext() {
     return {
       routeDepth: this.context.routeDepth + 1
@@ -30,7 +29,10 @@ class RouteHandler extends React.Component {
   }
 
   _updateRouteComponent(component) {
-    this.context.router.setRouteComponentAtDepth(this.getRouteDepth(), component);
+    this.context.router.setRouteComponentAtDepth(
+      this.getRouteDepth(),
+      component
+    );
   }
 
   getRouteDepth() {
@@ -40,8 +42,7 @@ class RouteHandler extends React.Component {
   createChildRouteHandler(props) {
     var route = this.context.router.getRouteAtDepth(this.getRouteDepth());
 
-    if (route == null)
-      return null;
+    if (route == null) return null;
 
     var childProps = assign({}, props || this.props, {
       ref: REF_NAME,
@@ -59,9 +60,8 @@ class RouteHandler extends React.Component {
     if (handler) {
       return <ContextWrapper>{handler}</ContextWrapper>;
     }
-    return <script/>;
+    return <script />;
   }
-
 }
 
 // TODO: Include these in the above class definition
