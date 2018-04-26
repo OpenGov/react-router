@@ -12,7 +12,8 @@ function checkPropTypes(componentName, propTypes, props) {
 
   for (var propName in propTypes) {
     if (propTypes.hasOwnProperty(propName)) {
-      var error = propTypes[propName](props, propName, componentName);
+      // var error = propTypes[propName](props, propName, componentName);
+      var error = false;
 
       if (error instanceof Error)
         warning(false, error.message);
