@@ -55,7 +55,11 @@ class RouteHandler extends React.Component {
   // <script/> for things like <CSSTransitionGroup/> that don't like null
   render() {
     var handler = this.createChildRouteHandler();
-    return handler ? (<ContextWrapper>{handler}</ContextWrapper>) : <script/>;
+
+    if (handler) {
+      return <ContextWrapper>{handler}</ContextWrapper>;
+    }
+    return <script/>;
   }
 
 }
