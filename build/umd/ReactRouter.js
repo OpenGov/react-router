@@ -1388,12 +1388,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: "componentDidMount",
 	    value: function componentDidMount() {
-	      this._updateRouteComponent(this.refs[REF_NAME]);
+	      this._updateRouteComponent(this[REF_NAME]);
 	    }
 	  }, {
 	    key: "componentDidUpdate",
 	    value: function componentDidUpdate() {
-	      this._updateRouteComponent(this.refs[REF_NAME]);
+	      this._updateRouteComponent(this[REF_NAME]);
 	    }
 	  }, {
 	    key: "componentWillUnmount",
@@ -1413,33 +1413,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: "createChildRouteHandler",
 	    value: function createChildRouteHandler(props) {
+	      var _this = this;
+
 	      var route = this.context.router.getRouteAtDepth(this.getRouteDepth());
 
 	      if (route == null) return null;
 
 	      var childProps = assign({}, props || this.props, {
-	        ref: REF_NAME,
+	        ref: function ref(_ref) {
+	          return _this[REF_NAME] = _ref;
+	        },
 	        params: this.context.router.getCurrentParams(),
 	        query: this.context.router.getCurrentQuery()
 	      });
 
 	      return React.createElement(route.handler, childProps);
 	    }
-
-	    // <script/> for things like <CSSTransitionGroup/> that don't like null
 	  }, {
 	    key: "render",
 	    value: function render() {
 	      var handler = this.createChildRouteHandler();
-
-	      if (handler) {
-	        return React.createElement(
-	          ContextWrapper,
-	          null,
-	          handler
-	        );
-	      }
-	      return React.createElement("script", null);
+	      // <script/> for things like <CSSTransitionGroup/> that don't like null
+	      return handler ? React.createElement(
+	        ContextWrapper,
+	        null,
+	        handler
+	      ) : React.createElement("script", null);
 	    }
 	  }]);
 

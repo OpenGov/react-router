@@ -17,11 +17,11 @@ class RouteHandler extends React.Component {
   }
 
   componentDidMount() {
-    this._updateRouteComponent(this.refs[REF_NAME]);
+    this._updateRouteComponent(this[REF_NAME]);
   }
 
   componentDidUpdate() {
-    this._updateRouteComponent(this.refs[REF_NAME]);
+    this._updateRouteComponent(this[REF_NAME]);
   }
 
   componentWillUnmount() {
@@ -45,7 +45,7 @@ class RouteHandler extends React.Component {
     if (route == null) return null;
 
     var childProps = assign({}, props || this.props, {
-      ref: REF_NAME,
+      ref: (ref) => this[REF_NAME] = ref,
       params: this.context.router.getCurrentParams(),
       query: this.context.router.getCurrentQuery()
     });
@@ -53,14 +53,10 @@ class RouteHandler extends React.Component {
     return React.createElement(route.handler, childProps);
   }
 
-  // <script/> for things like <CSSTransitionGroup/> that don't like null
   render() {
     var handler = this.createChildRouteHandler();
-
-    if (handler) {
-      return <ContextWrapper>{handler}</ContextWrapper>;
-    }
-    return <script />;
+    // <script/> for things like <CSSTransitionGroup/> that don't like null
+    return handler ? <ContextWrapper>{handler}</ContextWrapper> : <script/>;
   }
 }
 

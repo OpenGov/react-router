@@ -43,12 +43,12 @@ var RouteHandler = (function (_React$Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this._updateRouteComponent(this.refs[REF_NAME]);
+      this._updateRouteComponent(this[REF_NAME]);
     }
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
-      this._updateRouteComponent(this.refs[REF_NAME]);
+      this._updateRouteComponent(this[REF_NAME]);
     }
   }, {
     key: 'componentWillUnmount',
@@ -68,12 +68,16 @@ var RouteHandler = (function (_React$Component) {
   }, {
     key: 'createChildRouteHandler',
     value: function createChildRouteHandler(props) {
+      var _this = this;
+
       var route = this.context.router.getRouteAtDepth(this.getRouteDepth());
 
       if (route == null) return null;
 
       var childProps = assign({}, props || this.props, {
-        ref: REF_NAME,
+        ref: function ref(_ref) {
+          return _this[REF_NAME] = _ref;
+        },
         params: this.context.router.getCurrentParams(),
         query: this.context.router.getCurrentQuery()
       });
